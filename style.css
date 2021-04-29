@@ -1,0 +1,62 @@
+span.DEFINE,
+span.RW {
+  color: #E9C46A;
+}
+
+span.TYPE_VARIABLES {
+  color: #92D1C3;
+}
+
+span.VARIABLES {
+  color: #28536B;
+}
+
+span.EXT_TYPE_VARIABLES {
+  color: #2A9D8F;
+}
+
+span.CONDITIONALS {
+	color: deeppink;
+}
+
+span.CICLES {
+  color: blueviolet;
+}
+
+span.ID {
+    color: #264653;
+}
+
+span.INT,
+span.FLOAT {
+    color: #3A5683;
+}
+
+span.STRING,
+span.CHAR {
+  color: #76B041;
+}
+
+span.ASSIGNATION {
+  color: cornflowerblue;
+}
+
+span.MATH_OPERATORS {
+    color: #E76F51;
+}
+
+span.COMPARATIONS {
+  color: darkgray;
+}
+
+span.SPECIALS {
+  color: indigo;
+}
+
+span.COMMENT {
+  color: #8BB8A8;
+}
+
+span.LIBRARY {
+  color: darkturquoise;
+}
