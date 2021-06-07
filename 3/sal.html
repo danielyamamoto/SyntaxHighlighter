@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<span class="COMMENT">/* Escribe un programa que pida N numeros enteros al usuario (siendo N una constante definida con `#define`) y que, a continuacion, diga cuantos de los numeros introducidos eran pares y cuantos eran impares. Para ello, se aconseja utilizar las siguientes funciones: */</span>
+<br>
+<br><span class="TYPE_VARIABLES">int</span>&nbsp;<span class="ID">pedir_entero</span><span class="SPECIALS">(</span><span class="SPECIALS">)</span>&nbsp;<span class="SPECIALS">{</span>
+<br>&nbsp;&nbsp;<span class="TYPE_VARIABLES">int</span>&nbsp;<span class="ID">a</span><span class="SPECIALS">;</span>
+<br>&nbsp;&nbsp;<span class="RW">fprintf</span><span class="SPECIALS">(</span><span class="ID">stdout</span><span class="SPECIALS">,</span><span class="SPECIALS">"</span><span class="ID">Introduce</span>&nbsp;<span class="ID">un</span>&nbsp;<span class="ID">numero</span>&nbsp;<span class="ID">entero</span><span class="SPECIALS">:</span>&nbsp;<span class="SPECIALS">"</span><span class="SPECIALS">)</span><span class="SPECIALS">;</span>
+<br>&nbsp;&nbsp;<span class="RW">fscanf</span><span class="SPECIALS">(</span><span class="ID">stdin</span><span class="SPECIALS">,</span><span class="SPECIALS">"</span><span class="MATH_OPERATORS">%</span><span class="ID">d</span><span class="SPECIALS">"</span><span class="SPECIALS">,</span><span class="SPECIALS">&</span><span class="ID">a</span><span class="SPECIALS">)</span><span class="SPECIALS">;</span>
+<br>&nbsp;&nbsp;<span class="RW">return</span>&nbsp;<span class="ID">a</span><span class="SPECIALS">;</span>
+<br><span class="SPECIALS">}</span>
+<br>
+<br><span class="COMMENT">/* recibe un entero y nos dice si es par o no */</span>
+<br><span class="TYPE_VARIABLES">int</span>&nbsp;<span class="ID">es_par</span><span class="SPECIALS">(</span><span class="TYPE_VARIABLES">int</span>&nbsp;<span class="ID">n</span><span class="SPECIALS">)</span>&nbsp;<span class="SPECIALS">{</span>
+<br>&nbsp;&nbsp;<span class="RW">return</span>&nbsp;<span class="ID">n</span>&nbsp;<span class="MATH_OPERATORS">%</span>&nbsp;<span class="INT">2</span>&nbsp;<span class="COMPARATIONS">==</span>&nbsp;<span class="INT">0</span><span class="SPECIALS">;</span>
+<br><span class="SPECIALS">}</span>
+<br>
+<br><span class="COMMENT">/* Contar cosas es realmente sencillo, basta con tener una variable (*importante que este incializada a cero*) que se incrementa (en plan `contador=contador+1;`) por cada cosa que quieras contabilizar. */</span>
+<br>
+<br><span class="DEFINE">#define</span>&nbsp;<span class="ID">N</span>&nbsp;<span class="INT">10</span>
+<br><span class="TYPE_VARIABLES">int</span>&nbsp;<span class="RW">main</span><span class="SPECIALS">(</span><span class="SPECIALS">)</span>&nbsp;<span class="SPECIALS">{</span>
+<br>&nbsp;&nbsp;<span class="COMMENT">/* declarar las variables */</span>
+<br>&nbsp;&nbsp;<span class="TYPE_VARIABLES">int</span>&nbsp;<span class="ID">i</span><span class="SPECIALS">,</span><span class="ID">num</span><span class="SPECIALS">,</span><span class="ID">cuantos_pares</span><span class="ASSIGNATION">=</span><span class="INT">0</span><span class="SPECIALS">;</span>
+<br>
+<br>&nbsp;&nbsp;<span class="CICLES">for</span>&nbsp;<span class="SPECIALS">(</span><span class="ID">i</span><span class="ASSIGNATION">=</span><span class="INT">1</span><span class="SPECIALS">;</span>&nbsp;<span class="ID">i</span><span class="COMPARATIONS"><=</span><span class="ID">N</span><span class="SPECIALS">;</span>&nbsp;<span class="ID">i</span><span class="ASSIGNATION">=</span><span class="ID">i</span><span class="MATH_OPERATORS">+</span><span class="INT">1</span><span class="SPECIALS">)</span>&nbsp;<span class="SPECIALS">{</span>&nbsp;<span class="COMMENT">/* repetir N veces */</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="ID">num</span>&nbsp;<span class="ASSIGNATION">=</span>&nbsp;<span class="ID">pedir_entero</span><span class="SPECIALS">(</span><span class="SPECIALS">)</span><span class="SPECIALS">;</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="CONDITIONALS">if</span>&nbsp;<span class="SPECIALS">(</span><span class="ID">es_par</span><span class="SPECIALS">(</span><span class="ID">num</span><span class="SPECIALS">)</span><span class="SPECIALS">)</span>&nbsp;<span class="SPECIALS">{</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ID">cuantos_pares</span>&nbsp;<span class="ASSIGNATION">=</span>&nbsp;<span class="ID">cuantos_pares</span><span class="MATH_OPERATORS">+</span><span class="INT">1</span><span class="SPECIALS">;</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="SPECIALS">}</span>&nbsp;<span class="COMMENT">/* cierra el if */</span>
+<br>&nbsp;&nbsp;<span class="SPECIALS">}</span>&nbsp;<span class="COMMENT">/* cierra el bucle for */</span>
+<br>
+<br>&nbsp;&nbsp;<span class="COMMENT">/* mostrar el resultado */</span>
+<br>&nbsp;&nbsp;<span class="RW">fprintf</span><span class="SPECIALS">(</span><span class="ID">stdout</span><span class="SPECIALS">,</span><span class="SPECIALS">"</span><span class="ID">Hay</span>&nbsp;<span class="MATH_OPERATORS">%</span><span class="ID">d</span>&nbsp;<span class="ID">numeros</span>&nbsp;<span class="ID">pares</span>&nbsp;<span class="ID">y</span>&nbsp;<span class="MATH_OPERATORS">%</span><span class="ID">d</span>&nbsp;<span class="ID">impares</span><span class="SPECIALS">\</span><span class="ID">n</span><span class="SPECIALS">"</span><span class="SPECIALS">,</span>
+<br>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ID">cuantos_pares</span><span class="SPECIALS">,</span>&nbsp;<span class="ID">N</span><span class="MATH_OPERATORS">-</span><span class="ID">cuantos_pares</span><span class="SPECIALS">)</span><span class="SPECIALS">;</span>
+<br>
+<br>&nbsp;&nbsp;<span class="ID">getch</span><span class="SPECIALS">(</span><span class="SPECIALS">)</span><span class="SPECIALS">;</span>
+<br>&nbsp;&nbsp;<span class="RW">return</span>&nbsp;<span class="INT">0</span><span class="SPECIALS">;</span>
+<br><span class="SPECIALS">}</span>
+</body>
+</html>

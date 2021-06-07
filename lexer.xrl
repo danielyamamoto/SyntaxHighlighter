@@ -14,6 +14,7 @@ LB = [{]
 RB = [}]
 LSB = [[]
 RSB = []]
+QC = [?]
 DOL = [$]
 PUN = [#]
 SC = [;]
@@ -21,9 +22,10 @@ DC = [:]
 COMMA = [,]
 DM = ["]
 SM = [']
+BM = [`]
 VIR = [~]
 SLASH = [/] 
-ISLASH = [\]
+ISLASH = [\\\]
 PIPE = [|]
 AMP = [&]
 SIGN_EX = [!]
@@ -45,8 +47,10 @@ MARKS = ({DM}|{SM})
 % | = | += | -= | *= | /= | %= |
 Assignation = ({AS}|{PLUS}{AS}|{MINUS}{AS}|{MULT}{AS}|{DIV}{AS}|{MOD}{AS})
 
-% | // |
+% | // | /* | */ |
 Comment = ({SLASH}{SLASH})
+LBC = ({SLASH}{MULT})
+RBC = ({MULT}{SLASH})
 
 % | + | - | * | / | % |
 MathOp = ({PLUS}|{MINUS}|{MULT}|{DIV}|{MOD})
@@ -54,8 +58,8 @@ MathOp = ({PLUS}|{MINUS}|{MULT}|{DIV}|{MOD})
 % | < | > | <= | >= | == | || | && | != |
 Comparations = ({LT}|{GT}|{LT}{AS}|{GT}{AS}|{AS}{AS}|{PIPE}{PIPE}|{AMP}{AMP}|{SIGN_EX}{AS})
 
-% | ( | ) | { | } | [ | ] | # | ; | : | . | " | ' | | | , | & | $ | ! | ~ | \ | ^ |
-Specials = ({LP}|{RP}|{LB}|{RB}|{LSB}|{RSB}|{PUN}|{SC}|{DC}|{DOT}|{MARKS}|{PIPE}|{COMMA}|{AMP}|{DOL}|{SIGN_EX}|{VIR}|{ISLASH}|{EXP})
+% | ( | ) | { | } | [ | ] | # | ; | : | . | " | ' | | | , | & | $ | ! | ~ | \ | ^ | ¿ | ? |
+Specials = ({LP}|{RP}|{LB}|{RB}|{LSB}|{RSB}|{PUN}|{SC}|{DC}|{DOT}|{MARKS}|{PIPE}|{COMMA}|{AMP}|{DOL}|{SIGN_EX}|{VIR}|{ISLASH}|{EXP}|{QC}|{BM})
 
 Rules.
 
@@ -84,11 +88,11 @@ Rules.
 % Token de char
 {SM}{Letter}{SM} : {token, {'CHAR', "<span class=\"CHAR\">" ++ TokenChars ++"</span>", TokenLine}}.
 
-% Token de <librerias>
-{LT}{MARKS}?({Letter_}|{Digit})*({DOT}{Letter_}*)?{MARKS}?{GT} : {token, {'LIBRARY', "<span class=\"LIBRARY\">" ++ TokenChars ++"</span>", TokenLine}}.
-
 % Token de define
 {PUN}{Letter_}+ : {token, {'DEFINE', "<span class=\"DEFINE\">" ++ TokenChars ++"</span>", TokenLine}}.
+
+% Token de <librerias>
+{MARKS}?{Letter}+({DOT}{Letter}+){MARKS}? : {token, {'LIBRARY', "<span class=\"LIBRARY\">" ++ TokenChars ++"</span>", TokenLine}}.
 
 % Token de operaciones relacionales
 {Comparations} : {token, {'COMPARATIONS', "<span class=\"COMPARATIONS\">" ++ TokenChars ++"</span>", TokenLine}}.
@@ -103,7 +107,8 @@ Rules.
 {Assignation} : {token, {'ASSIGNATION', "<span class=\"ASSIGNATION\">" ++ TokenChars ++"</span>", TokenLine}}.
 
 % Token de comentarios
-{Comment}({Letter_}|{Digit}|{Comparations}|{MathOp}|{Specials}|{Assignation}|{SW_SPACE})* : {token, {'COMMENT', "<span class=\"COMMENT\">" ++ TokenChars ++"</span>", TokenLine}}.
+{Comment}({Letter_}|{Digit}|{Comparations}|{MathOp}|{Specials}|{Assignation}|{SW_SPACE}|{SW_TAB}|{SW_CARRIAGE})* : {token, {'COMMENT', "<span class=\"COMMENT\">" ++ TokenChars ++"</span>", TokenLine}}.
+{LBC}({Letter_}|{Digit}|{Comparations}|{MathOp}|{Specials}|{Assignation}|{SW_SPACE}|{SW_TAB}|{SW_CARRIAGE})*{RBC} : {token, {'BLOCKCOMMENT', "<span class=\"COMMENT\">" ++ TokenChars ++"</span>", TokenLine}}.
 
 % Tokens de SW
 {SW_SPACE} : {token, {'SW_SPACE', "&nbsp;", TokenLine}}.
@@ -161,6 +166,9 @@ reserved_word('goto')-> yellow;
 reserved_word('sizeof')-> yellow;
 reserved_word('return')-> yellow;
 reserved_word('exit')-> yellow;
+reserved_word('system')-> yellow;
+reserved_word('fprintf')-> yellow;
+reserved_word('fscanf')-> yellow;
 
 % IDS/Variables
 reserved_word(_)-> darkblue.
